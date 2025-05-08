@@ -193,12 +193,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         name,
         user_type: userType, // Use snake_case for Supabase
         ...(userType === 'student' ? {
-          university: '',
-          major: '',
+          university: '未設定',
+          major: '未設定',
           graduation_year: new Date().getFullYear() + 4,
         } : {
           company_name: name,
-          industry: '',
+          industry: '未設定',
         }),
       };
 

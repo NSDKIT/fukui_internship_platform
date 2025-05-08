@@ -14,6 +14,7 @@ const Register: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { register, error } = useAuth();
 
+  // 修正版のhandleSubmit関数
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setShowError(false);
@@ -28,7 +29,19 @@ const Register: React.FC = () => {
       // For companies, use the company name as the name
       const displayName = userType === 'company' ? companyName : name;
       
-      await register(email, password, displayName, userType);
+      // 追加のプロファイルデータ
+      const profileData = userType === 'student' 
+        ? {
+            university: '未設定', // 後でプロファイル画面で更新
+            major: '未設定',      // 後でプロファイル画面で更新
+            graduation_year: new Date().getFullYear() + 4,
+          }
+        : {
+            company_name: companyName,
+            industry: '未設定', // 後でプロファイル画面で更新
+          };
+      
+      await register(email, password, displayName, userType, profileData);
     } catch (err) {
       setShowError(true);
     } finally {
