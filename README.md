@@ -1,0 +1,1 @@
+# fukui_internship_platform
